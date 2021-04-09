@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string.h>
 #include <string>
+#include <typeinfo>
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time */
 #include "../vector/vector.hpp"
@@ -31,7 +32,6 @@ namespace lasd
     return v[index];
   }
 
-
   void riempi(Vector<std::string>& v)
   {
        for(unsigned int i=0; i < v.Size(); i++)
@@ -44,11 +44,17 @@ namespace lasd
   {
     Data dataRandom;
     srand ((unsigned int)time(NULL));
+    std::string type_name();
 
     for(unsigned int i = 0; i < v.Size(); i++)
     {
        dataRandom = (Data)rand() / 100 + 1;
        v[i] = dataRandom;
+
+       if(typeid(v[0]).name() == "d")
+       {
+         v[i] = trunc(dataRandom);
+       }
     }
   }
 
